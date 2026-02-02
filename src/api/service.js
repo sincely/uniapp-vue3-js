@@ -5,6 +5,12 @@ export function createService() {
   const request = axios.create({ adapter: createUniAppAxiosAdapter() })
   request.interceptors.request.use(
     (request) => {
+      // 调试：打印请求信息
+      console.log('🚀 Request:', {
+        url: request.baseURL + request.url,
+        method: request.method,
+        data: request.data
+      })
       return request
     },
     (err) => {
@@ -43,7 +49,14 @@ export function createService() {
       }
     },
     (error) => {
-      console.log(error)
+      // 详细打印错误信息
+      console.log('❌ Request Error:', {
+        message: error.message,
+        code: error.code,
+        status: error.response?.status,
+        url: error.config?.url,
+        baseURL: error.config?.baseURL
+      })
       const status = error.response?.status
       switch (status) {
         // TODO 再考虑下怎么判断是跨域问题

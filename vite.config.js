@@ -1,33 +1,28 @@
-
-import process from 'node:process';
-import { fileURLToPath, URL } from 'node:url';
-import { defineConfig, loadEnv } from 'vite';
-import { createViteProxy } from './build/config';
-import createVitePlugins from './build/plugins';
+import process from 'node:process'
+import { fileURLToPath, URL } from 'node:url'
+import { defineConfig, loadEnv } from 'vite'
+import { createViteProxy } from './build/config'
+import createVitePlugins from './build/plugins'
 import { resolve } from 'path'
 import path from 'path'
-// 拦截空 chunk 警告（uni-app 内部产生）
-const originalWarn = console.warn;
-console.warn = (...args) => {
-  const msg = args[0];
-  if (typeof msg === 'string' && msg.includes('Generated an empty chunk')) {
-    return;
-  }
-  originalWarn.apply(console, args);
-};
 
 // https://vitejs.dev/config/
 export default defineConfig(({ command, mode }) => {
   // mode: 区分生产环境还是开发环境
-  console.log('command, mode -> ', command, mode);
+  console.log('command, mode -> ', command, mode)
 
-  const { UNI_PLATFORM } = process.env;
-  console.log('UNI_PLATFORM -> ', UNI_PLATFORM); // 得到 mp-weixin, h5, app 等
+  const { UNI_PLATFORM } = process.env
+  console.log('UNI_PLATFORM -> ', UNI_PLATFORM) // 得到 mp-weixin, h5, app 等
 
-  const env = loadEnv(mode, fileURLToPath(new URL('./env', import.meta.url)));
-  console.log('环境变量 env -> ', env);
+  const env = loadEnv(mode, fileURLToPath(new URL('./env', import.meta.url)))
+  console.log('环境变量 env -> ', env)
+  console.log('process.env.NODE_ENV -> ', process.env.NODE_ENV)
+  const isBuild = process.env.NODE_ENV === 'production'
 
-  const isBuild = process.env.NODE_ENV === 'production';
+  // 安全解析布尔值
+  const dropConsole = env.VITE_DROP_CONSOLE === 'true'
+  const enableProxy = env.VITE_APP_PROXY === 'true'
+  console.log('enableProxy -> ', enableProxy)
   return {
     // 自定义env目录
     envDir: './env',
@@ -40,7 +35,7 @@ export default defineConfig(({ command, mode }) => {
         '@/components': resolve(__dirname, 'src/components'),
         '@/utils': resolve(__dirname, 'src/utils'),
         '@/assets': resolve(__dirname, 'src/assets'),
-        '@/store': resolve(__dirname, 'src/store'),
+        '@/store': resolve(__dirname, 'src/store')
       },
       extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', 'vue'] // 默认支持
     },
@@ -50,24 +45,23 @@ export default defineConfig(({ command, mode }) => {
       hmr: true,
       host: true,
       open: true,
-      proxy: createViteProxy(env),
+      proxy: enableProxy ? createViteProxy(env) : undefined
     },
     plugins: createVitePlugins(isBuild),
     css: {
       preprocessorOptions: {
         scss: {
-          additionalData: '@import "uview-pro/theme.scss";',
-        },
-      },
+          additionalData: '@import "uview-pro/theme.scss";'
+        }
+      }
     },
     esbuild: {
-      drop: JSON.parse(env.VITE_DROP_CONSOLE) ? ['console', 'debugger'] : [],
+      drop: dropConsole ? ['console', 'debugger'] : []
     },
     build: {
       // 忽略空 chunk 警告
       chunkSizeWarningLimit: 1000,
-      rollupOptions: {
-      },
-    },
-  };
-});
+      rollupOptions: {}
+    }
+  }
+})

@@ -5,6 +5,13 @@
   "pages": [
     //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
     {
+      "path": "pages/common/dingtalk-login/index",
+      "style": {
+        "navigationBarTitleText": "钉钉登录",
+        "navigationStyle": "custom"
+      }
+    },
+    {
       "path": "pages/index/index",
       "style": {
         "navigationBarTitleText": "uni-app-home"
@@ -26,6 +33,18 @@
       "path": "pages/uview/index",
       "style": {
         "navigationBarTitleText": "uView 示例组件"
+      }
+    },
+    {
+      "path": "pages/common/404/index",
+      "style": {
+        "navigationBarTitleText": "404"
+      }
+    },
+    {
+      "path": "pages/common/webview/index",
+      "style": {
+        "navigationBarTitleText": ""
       }
     }
   ],

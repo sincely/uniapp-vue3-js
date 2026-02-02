@@ -1,7 +1,8 @@
-import useClipboard from './use-clipboard'
-import useLoading from './use-loading'
-import useModal from './use-modal'
-import usePermission from './use-permission'
-import useShare from './use-share'
+import useClipboard from './useCliboard'
+import useDingTalkLogin from './useDingTalkLogin'
+import useLoading from './useLoading'
+import useModal from './useModal'
+import usePermission from './usePermission'
+import useShare from './useShare'
 
-export { useClipboard, useLoading, useModal, usePermission, useShare }
+export { useClipboard, useDingTalkLogin, useLoading, useModal, usePermission, useShare }
