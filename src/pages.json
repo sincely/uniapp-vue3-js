@@ -1,0 +1,57 @@
+{
+  "easycom": {
+    "autoscan": true
+  },
+  "pages": [
+    //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+    {
+      "path": "pages/index/index",
+      "style": {
+        "navigationBarTitleText": "uni-app-home"
+      }
+    },
+    {
+      "path": "pages/pinia/index",
+      "style": {
+        "navigationBarTitleText": "状态管理工具（pinia）"
+      }
+    },
+    {
+      "path": "pages/axios/index",
+      "style": {
+        "navigationBarTitleText": "Axios（网络请求示例）"
+      }
+    },
+    {
+      "path": "pages/uview/index",
+      "style": {
+        "navigationBarTitleText": "uView 示例组件"
+      }
+    }
+  ],
+  "tabBar": {
+    "color": "@tabFontColor",
+    "selectedColor": "@tabSelectedColor",
+    "backgroundColor": "@tabBgColor",
+    "borderStyle": "@tabBorderStyle",
+    "list": [
+      {
+        "pagePath": "pages/index/index"
+      },
+      {
+        "pagePath": "pages/pinia/index"
+      }
+    ]
+  },
+  "subPackages": [],
+  "globalStyle": {
+    "backgroundColor": "@bgColor",
+    "backgroundColorBottom": "@bgColorBottom",
+    "backgroundColorTop": "@bgColorTop",
+    "backgroundTextStyle": "@bgTxtStyle",
+    "navigationBarBackgroundColor": "#000000",
+    "navigationBarTextStyle": "@navTxtStyle",
+    "navigationBarTitleText": "uView Pro Starter",
+    "navigationStyle": "custom"
+  }
+}
