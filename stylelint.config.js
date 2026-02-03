@@ -11,17 +11,7 @@ export default {
       customSyntax: 'postcss-html'
     }
   ],
-  ignoreFiles: [
-    '**/*.js',
-    '**/*.jsx',
-    '**/*.tsx',
-    '**/*.ts',
-    '**/*.json',
-    '**/*.md',
-    '**/*.yaml',
-    'dist/*',
-    'uni_modules/*'
-  ],
+  ignoreFiles: ['**/*.js', '**/*.json', '**/*.md', '**/*.yaml', 'dist/*', 'src/uni_modules/**', 'node_modules/**'],
   rules: {
     // 禁止空代码
     'no-empty-source': null,
@@ -65,6 +55,7 @@ export default {
         ignorePseudoClasses: ['global', 'export', 'v-deep', 'deep']
       }
     ],
+    // 处理
     'comment-empty-line-before': 'never',
     // 处理小程序page标签不认识的问题
     'selector-type-no-unknown': [true, { ignoreTypes: ['page', 'radio', 'checkbox', 'scroll-view'] }]
