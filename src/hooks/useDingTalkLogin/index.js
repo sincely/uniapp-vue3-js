@@ -10,7 +10,7 @@
  */
 export function getAuthCode(corpId) {
   return new Promise((resolve, reject) => {
-    // #ifdef MP-DINGTALK
+    // #ifdef MP-ALIPAY
     if (typeof dd === 'undefined') {
       reject(new Error('当前环境不支持钉钉API'))
       return
@@ -18,6 +18,7 @@ export function getAuthCode(corpId) {
     dd.getAuthCode({
       corpId,
       success: (res) => {
+        console.log('获取钉钉授权码成功:', res.authCode)
         resolve(res.authCode)
       },
       fail: (err) => {
@@ -26,8 +27,7 @@ export function getAuthCode(corpId) {
       }
     })
     // #endif
-
-    // #ifndef MP-DINGTALK
+    // #ifdef MP-ALIPAY
     reject(new Error('当前平台不支持钉钉登录'))
     // #endif
   })
@@ -101,6 +101,7 @@ export function useDingTalkLogin() {
     errorMsg.value = ''
     try {
       const code = await getAuthCode(corpId)
+      console.log('code', code)
       authCode.value = code
       return code
     } catch (err) {

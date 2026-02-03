@@ -117,8 +117,9 @@ function viewAgreement(type) {
 
 // 钉钉免登登录
 async function handleDingTalkLogin() {
-  if (!checkAgreement()) return
+  // if (!checkAgreement()) return
 
+  console.log('DINGTALK_CORP_ID------', DINGTALK_CORP_ID)
   if (!DINGTALK_CORP_ID) {
     uni.$u.toast('未配置企业CorpID')
     return
@@ -177,7 +178,16 @@ function handleLoginSuccess(result) {
   }, 500)
 }
 
+onShow(() => {
+  // 检查是否已登录
+  console.log(222222222222222)
+})
+
 onLoad((options) => {
+  console.log(1111111111111)
+  // 检查是否已登录
+  handleDingTalkLogin()
+
   if (options.redirect) {
     redirect = decodeURIComponent(options.redirect)
   }
