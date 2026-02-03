@@ -3,11 +3,12 @@
     "autoscan": true
   },
   "pages": [
-    //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+    //只放 TabBar 页面和启动必要页面 pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
     {
       "path": "pages/tabbar/home/index",
       "style": {
-        "navigationBarTitleText": "首页"
+        "navigationBarTitleText": "首页",
+        "initialRenderingCache": "static"
       }
     },
     {
@@ -93,6 +94,20 @@
       ]
     }
   ],
+  "preloadRule": {
+    // 进入首页后预加载
+    "pages/tabbar/home/index": {
+      "network": "all",
+      "packages": [
+        "pages/business"
+      ]
+    }
+    // 进入商品列表时预加载商品详情页所在分包
+    // "subpkg-goods/list/list": {
+    //   "network": "all",
+    //   "packages": ["subpkg-goods"]
+    // }
+  },
   "globalStyle": {
     "backgroundColor": "@bgColor",
     "backgroundColorBottom": "@bgColorBottom",
