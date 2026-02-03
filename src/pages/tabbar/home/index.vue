@@ -23,15 +23,15 @@ import Hello from '@/components/hello/index.vue'
 const pages = reactive([
   {
     title: 'Pinia Demo',
-    url: '/pages/pinia/index'
+    url: '/pages/business/pinia/index'
   },
   {
     title: 'Axios Demo',
-    url: '/pages/axios/index'
+    url: '/pages/business/axios/index'
   },
   {
     title: 'uView Demo',
-    url: '/pages/uview/index'
+    url: '/pages/business/uview/index'
   }
 ])
 </script>

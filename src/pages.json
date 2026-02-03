@@ -5,23 +5,13 @@
   "pages": [
     //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
     {
-      "path": "pages/tabbar/home/index",
-      "style": {
-        "navigationBarTitleText": "首页"
-      }
+      "path": "pages/tabbar/home/index"
     },
     {
-      "path": "pages/tabbar/list/index",
-      "style": {
-        "navigationBarTitleText": "列表"
-      }
+      "path": "pages/tabbar/list/index"
     },
     {
-      "path": "pages/tabbar/user/index",
-      "style": {
-        "navigationStyle": "custom"
-      },
-      "needLogin": true
+      "path": "pages/tabbar/user/index"
     }
   ],
   "tabBar": {
