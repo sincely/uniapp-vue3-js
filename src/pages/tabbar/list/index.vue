@@ -1,13 +1,5 @@
 <template>
-  <z-paging ref="pagingRef" v-model="dataList" @query="queryList">
-    <view v-for="(item, index) in dataList" :key="index">
-      <u-cell :title="`列表长度-${index + 1}`">
-        <template #icon>
-          <u-avatar shape="square" size="35" :src="item" custom-style="margin: -3px 5px -3px 0" />
-        </template>
-      </u-cell>
-    </view>
-  </z-paging>
+  <view>1111</view>
 </template>
 
 <script setup>

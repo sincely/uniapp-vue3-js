@@ -5,28 +5,23 @@
   "pages": [
     //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
     {
-      "path": "pages/index/index",
+      "path": "pages/tabbar/home/index",
       "style": {
-        "navigationBarTitleText": "uni-app-home"
+        "navigationBarTitleText": "首页"
       }
     },
     {
-      "path": "pages/pinia/index",
+      "path": "pages/tabbar/list/index",
       "style": {
-        "navigationBarTitleText": "状态管理工具（pinia）"
+        "navigationBarTitleText": "列表"
       }
     },
     {
-      "path": "pages/axios/index",
+      "path": "pages/tabbar/user/index",
       "style": {
-        "navigationBarTitleText": "Axios（网络请求示例）"
-      }
-    },
-    {
-      "path": "pages/uview/index",
-      "style": {
-        "navigationBarTitleText": "uView 示例组件"
-      }
+        "navigationStyle": "custom"
+      },
+      "needLogin": true
     }
   ],
   "tabBar": {
@@ -36,14 +31,50 @@
     "borderStyle": "@tabBorderStyle",
     "list": [
       {
-        "pagePath": "pages/index/index"
+        "iconPath": "static/images/tabbar/icon_home.png",
+        "selectedIconPath": "static/images/tabbar/icon_home_selected.png",
+        "pagePath": "pages/tabbar/home/index",
+        "text": "首页"
       },
       {
-        "pagePath": "pages/pinia/index"
+        "iconPath": "static/images/tabbar/icon_list.png",
+        "selectedIconPath": "static/images/tabbar/icon_list_selected.png",
+        "pagePath": "pages/tabbar/list/index",
+        "text": "列表"
+      },
+      {
+        "iconPath": "static/images/tabbar/icon_me.png",
+        "selectedIconPath": "static/images/tabbar/icon_me_selected.png",
+        "pagePath": "pages/tabbar/user/index",
+        "text": "我的"
       }
     ]
   },
-  "subPackages": [],
+  "subPackages": [
+    {
+      "root": "pages/business",
+      "pages": [
+        {
+          "path": "pinia/index",
+          "style": {
+            "navigationBarTitleText": "状态管理工具（pinia）"
+          }
+        },
+        {
+          "path": "axios/index",
+          "style": {
+            "navigationBarTitleText": "Axios（网络请求示例）"
+          }
+        },
+        {
+          "path": "uview/index",
+          "style": {
+            "navigationBarTitleText": "uView 示例组件"
+          }
+        }
+      ]
+    }
+  ],
   "globalStyle": {
     "backgroundColor": "@bgColor",
     "backgroundColorBottom": "@bgColorBottom",
