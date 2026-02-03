@@ -22,11 +22,9 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.sw*
-.hbuilderx
 
 
 #user
-.hbuilderx
 unpackage
 /stats.html
 
