@@ -1,7 +1,7 @@
 import pagesJson from '@/pages.json'
 
 // 路径常量
-export const HOME_PATH = '/pages/tab/home/index'
+export const HOME_PATH = '/pages/tabbar/home/index'
 export const LOGIN_PATH = '/pages/common/login/index'
 export const ERROR404_PATH = '/pages/common/404/index'
 
@@ -40,6 +40,8 @@ function parseRoutes(pagesJson = {}) {
   return [...parsePages(pagesJson.pages), ...parseSubPackages(pagesJson.subPackages)]
 }
 export const routes = parseRoutes(pagesJson)
+
+console.log(routes)
 
 /**
  * 当前路由

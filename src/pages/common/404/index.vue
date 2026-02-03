@@ -1,47 +1,80 @@
 <template>
-  <view>1111</view>
+  <view class="error-container">
+    <view class="error-content">
+      <view class="error-icon">404</view>
+      <view class="error-title">页面不存在</view>
+      <view class="error-desc">抱歉，您访问的页面不存在或已被删除</view>
+
+      <view class="error-actions">
+        <u-button type="primary" @click="goHome">返回首页</u-button>
+        <u-button plain style="margin-top: 20rpx" @click="goBack">返回上一页</u-button>
+      </view>
+    </view>
+  </view>
 </template>
 
 <script setup>
-const pagingRef = ref(null)
-const dataList = ref([])
+import { HOME_PATH } from '@/router'
 
-const urls = [
-  'https://picsum.photos/100/100?random=1',
-  'https://picsum.photos/100/100?random=2',
-  'https://picsum.photos/100/100?random=3',
-  'https://picsum.photos/100/100?random=4',
-  'https://picsum.photos/100/100?random=5',
-  'https://picsum.photos/100/100?random=6',
-  'https://picsum.photos/100/100?random=7',
-  'https://picsum.photos/100/100?random=8',
-  'https://picsum.photos/100/100?random=9',
-  'https://picsum.photos/100/100?random=10'
-]
+const goHome = () => {
+  uni.reLaunch({
+    url: HOME_PATH
+  })
+}
 
-function queryList(pageNo, pageSize) {
-  console.log('[ pageNo ] >', pageNo)
-  console.log('[ pageSize ] >', pageSize)
-  // 这里的pageNo和pageSize会自动计算好，直接传给服务器即可
-  // 这里的请求只是演示，请替换成自己的项目的网络请求，并在网络请求回调中通过pagingRef.value.complete(请求回来的数组)将请求结果传给z-paging
-  setTimeout(() => {
-    // 1秒之后停止刷新动画
-    const list = []
-    for (let i = 0; i < 30; i++) list.push(urls[uni.$u.random(0, urls.length - 1)])
-
-    pagingRef.value?.complete(list)
-  }, 1000)
-  // this.$request
-  //   .queryList({ pageNo, pageSize })
-  //   .then(res => {
-  //     // 请勿在网络请求回调中给dataList赋值！！只需要调用complete就可以了
-  //     pagingRef.value.complete(res.data.list);
-  //   })
-  //   .catch(res => {
-  //     // 如果请求失败写pagingRef.value.complete(false)，会自动展示错误页面
-  //     // 注意，每次都需要在catch中写这句话很麻烦，z-paging提供了方案可以全局统一处理
-  //     // 在底层的网络请求抛出异常时，写uni.$emit('z-paging-error-emit');即可
-  //     pagingRef.value.complete(false);
-  //   });
+const goBack = () => {
+  const pages = getCurrentPages()
+  if (pages.length > 1) {
+    uni.navigateBack()
+  } else {
+    goHome()
+  }
 }
 </script>
+
+<style lang="scss" scoped>
+.error-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40rpx;
+  background: #f5f5f5;
+}
+
+.error-content {
+  text-align: center;
+  width: 100%;
+  max-width: 600rpx;
+}
+
+.error-icon {
+  font-size: 160rpx;
+  font-weight: bold;
+  color: #e0e0e0;
+  line-height: 1;
+  margin-bottom: 40rpx;
+}
+
+.error-title {
+  font-size: 40rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20rpx;
+}
+
+.error-desc {
+  font-size: 28rpx;
+  color: #999;
+  line-height: 1.6;
+  margin-bottom: 60rpx;
+}
+
+.error-actions {
+  padding: 0 40rpx;
+
+  :deep(.u-button) {
+    width: 100%;
+  }
+}
+</style>

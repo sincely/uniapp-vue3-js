@@ -1,5 +1,6 @@
 import setupStore from '@/store'
 import setupPermission from './permission'
+
 import setupUI from './ui'
 
 export default {

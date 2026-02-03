@@ -5,13 +5,24 @@
   "pages": [
     //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
     {
-      "path": "pages/tabbar/home/index"
+      "path": "pages/tabbar/home/index",
+      "style": {
+        "navigationBarTitleText": "首页"
+      }
     },
     {
-      "path": "pages/tabbar/list/index"
+      "path": "pages/tabbar/list/index",
+      "style": {
+        "navigationBarTitleText": "列表"
+      }
     },
     {
-      "path": "pages/tabbar/user/index"
+      "path": "pages/tabbar/user/index",
+      "style": {
+        "navigationBarTitleText": "我的",
+        "navigationStyle": "custom"
+      },
+      "needLogin": true
     }
   ],
   "tabBar": {
@@ -39,18 +50,44 @@
           "path": "pinia/index",
           "style": {
             "navigationBarTitleText": "状态管理工具（pinia）"
-          }
+          },
+          "needLogin": true
         },
         {
           "path": "axios/index",
           "style": {
             "navigationBarTitleText": "Axios（网络请求示例）"
-          }
+          },
+          "needLogin": true
         },
         {
           "path": "uview/index",
           "style": {
             "navigationBarTitleText": "uView 示例组件"
+          }
+        }
+      ]
+    },
+    {
+      "root": "pages/common",
+      "pages": [
+        {
+          "path": "login/index",
+          "style": {
+            "navigationBarTitleText": "登录",
+            "navigationStyle": "custom"
+          }
+        },
+        {
+          "path": "webview/index",
+          "style": {
+            "navigationBarTitleText": "网页"
+          }
+        },
+        {
+          "path": "404/index",
+          "style": {
+            "navigationBarTitleText": "页面不存在"
           }
         }
       ]
