@@ -1,11 +1,20 @@
 <script setup>
+/**
+ * ====================================
+ * AppPage - 页面容器组件
+ * ====================================
+ * 功能：
+ * - 统一页面布局
+ * - 集成导航栏和 TabBar
+ * - 页面过渡动画
+ */
 import { $u } from 'uview-pro'
-import { reactive } from 'vue'
 
 defineProps({
+  // ======== 导航栏配置 ========
   navTitle: {
     type: String,
-    default: 'uView Pro'
+    default: ''
   },
   showNavBack: {
     type: Boolean,
@@ -15,6 +24,22 @@ defineProps({
     type: Boolean,
     default: false
   },
+  // 导航栏渐变色配置
+  navGradient: {
+    type: Object,
+    default: () => ({
+      startColor: 'var(--u-type-primary-dark)',
+      endColor: 'var(--u-type-primary-disabled)',
+      direction: '90deg'
+    })
+  },
+  // 导航栏纯色背景
+  navBackground: {
+    type: String,
+    default: 'var(--u-type-primary)'
+  },
+
+  // ======== 页面配置 ========
   showTabbar: {
     type: Boolean,
     default: false
@@ -26,35 +51,50 @@ defineProps({
   customClass: {
     type: [String, Object],
     default: ''
+  },
+  // 是否启用页面过渡动画
+  transition: {
+    type: Boolean,
+    default: true
+  },
+  // 过渡动画名称
+  transitionName: {
+    type: String,
+    default: 'slide-left'
   }
-})
-
-const background = reactive({
-  backgroundColor: 'var(--u-type-primary)',
-  // 渐变色
-  backgroundImage: 'linear-gradient(90deg, var(--u-type-primary-dark), var(--u-type-primary-disabled))'
 })
 </script>
 
 <template>
-  <view class="app-page" :class="{ 'has-tabbar': showTabbar }" :style="$u.toStyle(customStyle)">
-    <!-- #ifdef MP-ALIPAY -->
-    <u-navbar
+  <view class="app-page" :class="[customClass, { 'has-tabbar': showTabbar }]" :style="$u.toStyle(customStyle)">
+    <!-- 导航栏 -->
+    <app-navbar
       v-if="!hideNav"
-      :is-back="showNavBack && !showTabbar"
       :title="navTitle"
-      :background="background"
-      :is-fixed="true"
-      :immersive="false"
-      back-icon-name="arrow-leftward"
-      title-width="350"
-      title-color="#ffffff"
-      back-icon-color="#ffffff"
-    />
-    <!-- #endif -->
-    <u-transition name="slide-left" :appear="true">
+      :show-back="showNavBack && !showTabbar"
+      :gradient="navGradient"
+      :background-color="navBackground"
+    >
+      <template #left>
+        <slot name="nav-left"></slot>
+      </template>
+      <template #center>
+        <slot name="nav-center"></slot>
+      </template>
+      <template #right>
+        <slot name="nav-right"></slot>
+      </template>
+    </app-navbar>
+
+    <!-- 页面内容 -->
+    <u-transition v-if="transition" :name="transitionName" :appear="true">
       <slot />
     </u-transition>
+    <template v-else>
+      <slot />
+    </template>
+
+    <!-- 底部 TabBar -->
     <app-tabbar v-if="showTabbar" />
   </view>
 </template>
@@ -63,7 +103,6 @@ const background = reactive({
 .app-page {
   width: 100%;
   min-height: 100vh;
-  // padding-bottom: 30rpx;
   overflow-y: auto;
   background-color: $u-bg-white;
   -webkit-font-smoothing: antialiased;

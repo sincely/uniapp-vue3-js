@@ -38,13 +38,4 @@ const pages = reactive([
   padding: 32rpx;
   min-height: 100vh;
 }
-
-.h2 {
-  font-size: 50rpx;
-  color: green;
-}
-
-navigator {
-  color: #1e80ff;
-}
 </style>
