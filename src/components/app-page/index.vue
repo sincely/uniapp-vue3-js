@@ -67,7 +67,7 @@ defineProps({
 
 <template>
   <view class="app-page" :class="[customClass, { 'has-tabbar': showTabbar }]" :style="$u.toStyle(customStyle)">
-    <!-- 导航栏 -->
+    <!-- #ifndef MP-ALIPAY -->
     <app-navbar
       v-if="!hideNav"
       :title="navTitle"
@@ -85,7 +85,7 @@ defineProps({
         <slot name="nav-right"></slot>
       </template>
     </app-navbar>
-
+    <!-- #endif -->
     <!-- 页面内容 -->
     <u-transition v-if="transition" :name="transitionName" :appear="true">
       <slot />
