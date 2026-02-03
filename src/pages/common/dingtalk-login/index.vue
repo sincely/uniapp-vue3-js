@@ -54,9 +54,8 @@
           </view>
         </view>
       </view>
-
       <!-- 加载状态 -->
-      <!-- <u-loading-page :loading="loading" loading-text="登录中..." bg-color="rgba(255,255,255,0.8)" /> -->
+      <u-loading :show="loading" :size="40" />
 
       <!-- 协议 -->
       <view class="agreement">
@@ -90,7 +89,7 @@ const agreeList = ref([])
 let redirect = HOME_PATH
 
 // 检查是否同意协议
-function checkAgreement () {
+function checkAgreement() {
   if (!agreeList.value.includes('agree')) {
     uni.$u.toast('请先同意用户协议和隐私政策')
     return false
@@ -99,7 +98,7 @@ function checkAgreement () {
 }
 
 // 切换协议同意状态
-function toggleAgreement () {
+function toggleAgreement() {
   if (agreeList.value.includes('agree')) {
     agreeList.value = []
   } else {
@@ -108,14 +107,16 @@ function toggleAgreement () {
 }
 
 // 查看协议
-function viewAgreement (type) {
+function viewAgreement(type) {
   const url =
-    type === 'user' ? '/pages/common/webview/index?url=user-agreement' : '/pages/common/webview/index?url=privacy-policy'
+    type === 'user'
+      ? '/pages/common/webview/index?url=user-agreement'
+      : '/pages/common/webview/index?url=privacy-policy'
   uni.navigateTo({ url })
 }
 
 // 钉钉免登登录
-async function handleDingTalkLogin () {
+async function handleDingTalkLogin() {
   if (!checkAgreement()) return
 
   if (!DINGTALK_CORP_ID) {
@@ -124,7 +125,7 @@ async function handleDingTalkLogin () {
   }
 
   const result = await dingTalkLogin(DINGTALK_CORP_ID, async (authCode) => {
-    console.log('authCode------', authCode);
+    console.log('authCode------', authCode)
     // 调用后端接口，用 authCode 换取 token 和用户信息
     return await userApi.dingTalkLogin(authCode)
   })
@@ -137,7 +138,7 @@ async function handleDingTalkLogin () {
 }
 
 // 扫码登录
-async function handleScanLogin () {
+async function handleScanLogin() {
   if (!checkAgreement()) return
 
   const result = await scanLogin(async (qrCode) => {
@@ -153,14 +154,14 @@ async function handleScanLogin () {
 }
 
 // 跳转手机号登录
-function goPhoneLogin () {
+function goPhoneLogin() {
   uni.navigateTo({
     url: `${LOGIN_PATH}?redirect=${encodeURIComponent(redirect)}`
   })
 }
 
 // 登录成功处理
-function handleLoginSuccess (result) {
+function handleLoginSuccess(result) {
   // 保存 token
   if (result.token) {
     setToken(result.token)
