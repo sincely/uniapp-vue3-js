@@ -21,7 +21,7 @@ const current = ref(0)
 </script>
 
 <template>
-  <u-tabbar v-model="current" :list="tabbarList" :active-color="$u.color.primary" />
+  <u-tabbar v-model="current" :list="tabbarList" :active-color="$u.color.primary" :mid-button="true" />
 </template>
 
 <style lang="scss" scoped></style>

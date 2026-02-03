@@ -38,7 +38,7 @@ const background = reactive({
 
 <template>
   <view class="app-page" :class="{ 'has-tabbar': showTabbar }" :style="$u.toStyle(customStyle)">
-    <!-- #ifndef MP-ALIPAY -->
+    <!-- #ifdef MP-ALIPAY -->
     <u-navbar
       v-if="!hideNav"
       :is-back="showNavBack && !showTabbar"

@@ -1,17 +1,11 @@
 <template>
-  <app-page nav-title="测试" show-nav-back>
+  <app-page nav-title="测试11" :showNavBack="false" showTabbar>
     <view class="app-container">
       <Hello />
       <text class="h2">查看其它页面↓</text>
       <view>
-        <navigator v-for="(v, idx) in pages" :key="idx" :url="v.url">{{ v.title }}</navigator>
+        <navigator v-for="v in pages" :key="v.id" :url="v.url">{{ v.title }}</navigator>
       </view>
-      <u-button>默认按钮</u-button>
-      <u-button type="primary">主要按钮</u-button>
-      <u-button type="success">成功按钮</u-button>
-      <u-button type="info">信息按钮</u-button>
-      <u-button type="warning">警告按钮</u-button>
-      <u-button type="error">危险按钮</u-button>
     </view>
   </app-page>
 </template>
@@ -23,15 +17,18 @@ import Hello from '@/components/hello/index.vue'
 const pages = reactive([
   {
     title: 'Pinia Demo',
-    url: '/pages/business/pinia/index'
+    url: '/pages/business/pinia/index',
+    id: 1
   },
   {
     title: 'Axios Demo',
-    url: '/pages/business/axios/index'
+    url: '/pages/business/axios/index',
+    id: 2
   },
   {
     title: 'uView Demo',
-    url: '/pages/business/uview/index'
+    url: '/pages/business/uview/index',
+    id: 3
   }
 ])
 </script>

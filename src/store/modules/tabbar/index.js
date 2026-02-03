@@ -10,15 +10,23 @@ const useTabbarStore = defineStore(
         text: '首页',
         iconPath: 'home',
         selectedIconPath: 'home-fill',
-        pagePath: '/pages/home/home',
-        isDot: true
+        pagePath: '/pages/tabbar/home/index'
       },
       {
-        text: '关于',
+        text: '账户',
+        iconPath: 'plus',
+        selectedIconPath: 'account-fill',
+        midButton: true, // 如果是凸起按钮项，需配置此值为true
+        pagePath: '/pages/tabbar/list/index',
+        iconSize: 40, // 图标大小，不设置默认跟随prop为40rpx
+        textSize: 26 // 文字大小，不设置默认跟随prop为26rpx
+      },
+
+      {
+        text: '我的',
         iconPath: 'account',
         selectedIconPath: 'account-fill',
-        pagePath: '/pages/about/about',
-        count: 3
+        pagePath: '/pages/tabbar/user/index'
       }
     ])
 
