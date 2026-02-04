@@ -3,19 +3,21 @@
     "autoscan": true
   },
   "pages": [
-    //只放 TabBar 页面和启动必要页面 pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+    //只放TabBar页面和启动必要页面,pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
     {
       "path": "pages/tabbar/home/index",
       "style": {
         "navigationBarTitleText": "首页",
         "initialRenderingCache": "static"
-      }
+      },
+      "needLogin": false
     },
     {
       "path": "pages/tabbar/list/index",
       "style": {
         "navigationBarTitleText": "列表"
-      }
+      },
+      "needLogin": false
     },
     {
       "path": "pages/tabbar/user/index",
@@ -65,7 +67,8 @@
           "path": "uview/index",
           "style": {
             "navigationBarTitleText": "uView 示例组件"
-          }
+          },
+          "needLogin": false
         }
       ]
     },
@@ -77,19 +80,22 @@
           "style": {
             "navigationBarTitleText": "登录",
             "navigationStyle": "custom"
-          }
+          },
+          "needLogin": false
         },
         {
           "path": "webview/index",
           "style": {
             "navigationBarTitleText": "网页"
-          }
+          },
+          "needLogin": false
         },
         {
           "path": "404/index",
           "style": {
             "navigationBarTitleText": "页面不存在"
-          }
+          },
+          "needLogin": false
         }
       ]
     }
@@ -113,9 +119,13 @@
     "backgroundColorBottom": "@bgColorBottom",
     "backgroundColorTop": "@bgColorTop",
     "backgroundTextStyle": "@bgTxtStyle",
-    "navigationBarBackgroundColor": "#000000",
+    "navigationBarBackgroundColor": "@navBgColor",
     "navigationBarTextStyle": "@navTxtStyle",
-    "navigationBarTitleText": "uView Pro Starter",
+    "navigationBarTitleText": "uView Pro",
     "navigationStyle": "custom"
+    // "mp-alipay": {
+    //   "transparentTitle": "always",
+    //   "titlePenetrate": "YES"
+    // }
   }
 }
