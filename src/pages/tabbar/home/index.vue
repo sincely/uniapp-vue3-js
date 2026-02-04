@@ -11,7 +11,6 @@
 
 <script setup>
 import { reactive } from 'vue'
-import Hello from '@/components/hello/index.vue'
 
 const pages = reactive([
   {
