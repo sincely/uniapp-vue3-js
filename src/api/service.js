@@ -1,10 +1,16 @@
 import axios from 'axios'
 import { createUniAppAxiosAdapter } from '@uni-helper/axios-adapter'
+import { getToken, TokenPrefix } from '@/utils/auth'
 import { httpLogError, requestError, throttleToLogin } from './utils'
 export function createService() {
   const request = axios.create({ adapter: createUniAppAxiosAdapter() })
   request.interceptors.request.use(
     (request) => {
+      const token = getToken()
+      if (token && !request.headers?.Authorization) {
+        request.headers = request.headers || {}
+        request.headers.Authorization = token.startsWith(TokenPrefix) ? token : `${TokenPrefix}${token}`
+      }
       return request
     },
     (err) => {

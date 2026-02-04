@@ -24,5 +24,11 @@ export const requestError = (response) => {
 
 // 登录失效
 export const throttleToLogin = () => {
-  // uni.navigateTo({ url: '/pages/login/login' })
+  const pages = getCurrentPages()
+  const currentPage = pages[pages.length - 1]
+  const fullPath = currentPage?.$page?.fullPath || (currentPage?.route ? `/${currentPage.route}` : '')
+  const redirect = encodeURIComponent(fullPath)
+  uni.reLaunch({
+    url: `/pages/common/login/index?redirect=${redirect}`
+  })
 }

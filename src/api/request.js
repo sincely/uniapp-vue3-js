@@ -1,17 +1,29 @@
 import { service } from './service'
 function createRequest(service) {
-  function request(config) {
-    // config 自定义配置
+  function request(urlOrConfig) {
+    const inputConfig = urlOrConfig
+
     // axios默认配置
-    const configDefault = {
-      baseURL: import.meta.env.VITE_APP_API_BASEURL, // 所有通过此配置的基础地址 在.env文件配置
-      timeout: 15000, // 请求超时时间
-      responseType: 'json', // 响应类型
-      headers: {
-        // 请求头配置...
-      }
+    let baseURL = import.meta.env.VITE_API_BASE_URL
+    // #ifdef H5
+    // H5 开发环境可使用 Vite proxy，通过前缀转发（例如 /api）
+    if (
+      import.meta.env.VITE_APP_PROXY &&
+      JSON.parse(import.meta.env.VITE_APP_PROXY) &&
+      import.meta.env.VITE_API_PREFIX
+    ) {
+      baseURL = import.meta.env.VITE_API_PREFIX
     }
-    const requestConfig = Object.assign(configDefault, config)
+    // #endif
+
+    const configDefault = {
+      baseURL,
+      timeout: 15000,
+      responseType: 'json',
+      headers: {}
+    }
+
+    const requestConfig = Object.assign(configDefault, inputConfig)
     return service(requestConfig)
   }
   return request
