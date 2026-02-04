@@ -1,7 +1,6 @@
 <template>
   <app-page nav-title="测试11" :showNavBack="false" showTabbar>
     <view class="app-container">
-      <Hello />
       <text class="h2">查看其它页面↓</text>
       <view>
         <navigator v-for="v in pages" :key="v.id" :url="v.url">{{ v.title }}</navigator>
