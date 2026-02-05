@@ -80,16 +80,21 @@ import { useDingTalkLogin } from '@/hooks'
 import { HOME_PATH, isTabBarPath, LOGIN_PATH } from '@/router'
 import { setToken } from '@/utils/auth'
 import userApi from '@/api/modules/user'
-
-// 钉钉企业 CorpID，需要根据实际情况配置
-const DINGTALK_CORP_ID = import.meta.env.VITE_DINGTALK_CORP_ID || ''
+import auth from '@/api/modules/auth'
+import useAuthStore from '../../../store/modules/user'
+import { ref } from 'vue'
 
 const { loading, errorMsg, dingTalkLogin, scanLogin } = useDingTalkLogin()
+// 钉钉企业 CorpID，需要根据实际情况配置
+const DINGTALK_CORP_ID = import.meta.env.VITE_DINGTALK_CORP_ID || ''
+// 临时授权码
+const authCode = ref('')
+const qrCode = ref('')
 const agreeList = ref([])
 let redirect = HOME_PATH
-
+const userAuth = useAuthStore()
 // 检查是否同意协议
-function checkAgreement() {
+const checkAgreement = () => {
   if (!agreeList.value.includes('agree')) {
     uni.$u.toast('请先同意用户协议和隐私政策')
     return false
@@ -98,7 +103,7 @@ function checkAgreement() {
 }
 
 // 切换协议同意状态
-function toggleAgreement() {
+const toggleAgreement = () => {
   if (agreeList.value.includes('agree')) {
     agreeList.value = []
   } else {
@@ -107,7 +112,7 @@ function toggleAgreement() {
 }
 
 // 查看协议
-function viewAgreement(type) {
+const viewAgreement = (type) => {
   const url =
     type === 'user'
       ? '/pages/common/webview/index?url=user-agreement'
@@ -116,7 +121,7 @@ function viewAgreement(type) {
 }
 
 // 钉钉免登登录
-async function handleDingTalkLogin() {
+const handleDingTalkLogin = async () => {
   // if (!checkAgreement()) return
 
   console.log('DINGTALK_CORP_ID------', DINGTALK_CORP_ID)
@@ -125,30 +130,40 @@ async function handleDingTalkLogin() {
     return
   }
 
-  const result = await dingTalkLogin(DINGTALK_CORP_ID, async (authCode) => {
-    console.log('authCode------', authCode)
-    // 调用后端接口，用 authCode 换取 token 和用户信息
-    return await userApi.dingTalkLogin(authCode)
-  })
-
-  if (result) {
-    handleLoginSuccess(result)
-  } else if (errorMsg.value) {
-    uni.$u.toast(errorMsg.value)
+  try {
+    const result = await dingTalkLogin(DINGTALK_CORP_ID)
+    console.log('ding talk login result------', result)
+    authCode.value = result
+    userAuth.setAuthCode(result)
+  } catch (e) {
+    console.log('ding talk login error------', e)
   }
 }
 
 // 扫码登录
 async function handleScanLogin() {
   if (!checkAgreement()) return
-
-  const result = await scanLogin(async (qrCode) => {
+  const result = await scanLogin(async (text) => {
+    qrCode.value = text
     // 调用后端接口，用扫码结果换取 token 和用户信息
-    return await userApi.scanLogin(qrCode)
+    return await auth.scanQrcode(text)
   })
 
-  if (result) {
-    handleLoginSuccess(result)
+  console.log('scan login result------', result)
+  qrCode.value = result.data
+
+  if ((result.code = 200)) {
+    // 跳转到authConfirm页面确认扫码登录
+    uni.navigateTo({
+      url: '/pages/common/authConfirm/index?code=' + authCode.value + '&ticket=' + qrCode.value,
+      success: (res) => {
+        const { eventChannel } = res
+        eventChannel.on('auth-confirm-scan', async (data) => {
+          console.log('用户确认扫码登录------', data)
+        })
+      }
+    })
+    // handleLoginSuccess(result)
   } else if (errorMsg.value) {
     uni.$u.toast(errorMsg.value)
   }
@@ -178,13 +193,7 @@ function handleLoginSuccess(result) {
   }, 500)
 }
 
-onShow(() => {
-  // 检查是否已登录
-  console.log(222222222222222)
-})
-
 onLoad((options) => {
-  console.log(1111111111111)
   // 检查是否已登录
   handleDingTalkLogin()
 

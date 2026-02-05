@@ -20,12 +20,13 @@ export function createService() {
 
   request.interceptors.response.use(
     (response) => {
+      console.log('响应数据', response)
       const dataAxios = response.data
       // 这个状态码是和后端约定的
       const { code, data } = dataAxios
       // 根据 code 进行判断
-      if (code === undefined) {
-        return dataAxios
+      if (response.status === 200) {
+        return response.data
       } else {
         // 目前和公司后端口头约定是字符串,以防万一强制转字符串
         switch (`${code}`) {

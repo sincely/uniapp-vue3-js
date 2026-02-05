@@ -6,6 +6,7 @@ import { createPersistedState } from 'pinia-plugin-persistedstate'
 // 导入子模块
 import useAppStore from './modules/app'
 import useTabbarStore from './modules/tabbar'
+import userStore from './modules/user'
 
 // 安装pinia状态管理插件
 function setupStore(app) {
@@ -23,5 +24,5 @@ function setupStore(app) {
 }
 
 // 导出模块
-export { useAppStore, useTabbarStore }
+export { useAppStore, useTabbarStore, userStore }
 export default setupStore

@@ -1,8 +1,8 @@
 export const createViteProxy = (env) => {
-  const { VITE_APP_PROXY, VITE_API_PREFIX, VITE_API_BASE_URL } = env
+  const { VITE_APP_PROXY, VITE_API_PREFIX, VITE_API_BASE_URL_PROXY } = env
   console.log('VITE_APP_PROXY -> ', VITE_APP_PROXY)
   console.log('VITE_API_PREFIX -> ', VITE_API_PREFIX)
-  console.log('VITE_API_BASE_URL -> ', VITE_API_BASE_URL)
+  console.log('VITE_API_BASE_URL_PROXY  -> ', VITE_API_BASE_URL_PROXY)
   // ┌─────────────────────────────────────────────────────────────┐
   // │                      没有代理（跨域）                         │
   // ├─────────────────────────────────────────────────────────────┤
@@ -29,7 +29,7 @@ export const createViteProxy = (env) => {
     // 匹配以 /api 开头的请求
     [VITE_API_PREFIX]: {
       // 转发到后端服务器
-      target: VITE_API_BASE_URL,
+      target: VITE_API_BASE_URL_PROXY,
       // 修改请求头中的 Origin
       changeOrigin: true,
       // 重写路径：去掉 /api 前缀

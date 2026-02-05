@@ -10,4 +10,6 @@ const modulesHandle = (moduleContext = {}) => {
 }
 
 const apis = modulesHandle(import.meta.glob('./modules/**/*.js', { eager: true }))
+
+console.log('apis11111111111', apis)
 export const useRequest = () => apis

@@ -46,6 +46,12 @@
       "style": {
         "navigationBarTitleText": ""
       }
+    },
+    {
+      "path": "pages/common/authConfirm/index",
+      "style": {
+        "navigationBarTitleText": "扫码登录确认"
+      }
     }
   ],
   "tabBar": {

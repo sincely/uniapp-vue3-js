@@ -1,13 +1,10 @@
 import { service } from './service'
 function createRequest(service) {
   function request(config) {
-    // 检查 baseURL 是否正确配置
-    const baseURL = import.meta.env.VITE_API_URL
-    console.log('API baseURL:', baseURL) // 调试用
-    // config 自定义配置
+    console.log('API baseURL:', import.meta.env.VITE_API_BASE_URL) // 调试用
     // axios默认配置
     const configDefault = {
-      baseURL: import.meta.env.VITE_APP_API_BASEURL, // 所有通过此配置的基础地址 在.env文件配置
+      baseURL: import.meta.env.VITE_API_BASE_URL, // 所有通过此配置的基础地址 在.env文件配置
       timeout: 15000, // 请求超时时间
       // responseType: 'json', //  支付宝小程序 request 暂不支持 responseType响应类型
       headers: {
